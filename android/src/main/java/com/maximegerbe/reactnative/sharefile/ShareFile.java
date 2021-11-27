@@ -82,7 +82,7 @@ public class ShareFile extends ReactContextBaseJavaModule {
     Intent fileIntent = Intent.createChooser(intentShareFile, "");
     fileIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
-    reactContext.startActivity(i);
+    reactContext.startActivity(fileIntent);
   }
 
   @Override
