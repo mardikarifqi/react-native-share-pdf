@@ -8,9 +8,8 @@ package com.maximegerbe.reactnative.sharefile;
 
 import android.content.Intent;
 import android.net.Uri;
-import android.support.v4.content.FileProvider;
+import androidx.core.content.FileProvider;
 import android.util.Base64;
-import android.app.Activity;
 
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
@@ -79,10 +78,11 @@ public class ShareFile extends ReactContextBaseJavaModule {
     intentShareFile.setType(TYPE_PDF);
     intentShareFile.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
     intentShareFile.putExtra(Intent.EXTRA_STREAM, outputFileUri);
-    intentShareFile.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-    
-    Activity currentActivity = getCurrentActivity();
-    currentActivity.startActivity(Intent.createChooser(intentShareFile, ""));
+
+    Intent fileIntent = Intent.createChooser(intentShareFile, "");
+    fileIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+    reactContext.startActivity(i);
   }
 
   @Override
@@ -91,6 +91,6 @@ public class ShareFile extends ReactContextBaseJavaModule {
   }
 
   private File getDirectoryPath() {
-    return new File(reactContext.getCurrentActivity().getFilesDir(), PDF_CACHE_DIR);
+    return new File(reactContext.getFilesDir(), PDF_CACHE_DIR);
   }
 }
